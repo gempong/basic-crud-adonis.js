@@ -1,0 +1,29 @@
+@layout('layout')
+@yield('content')
+<section class="main-section py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-10 mx-auto">
+        <h2>Create To Do</h2>
+        <form action="{{ route('Todo.store') }}" method="POST" enctype="multipart/form-data">
+          {{ csrfField() }}
+          <div class="form-group">
+            <label for="title">Title</label>
+            <input class="form-control" type="text" name="title" placeholder="Title" required>
+          </div>
+          <div class="form-group">
+            <label for="description">Description</label>
+            <textarea class="form-control" name="description" cols="30" rows="10" placeholder="Description"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="file">File</label>
+            <input type="file" class="form-control-file" name="img">
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+          <a class="btn btn-secondary" href="{{ route('Todo.index') }}">Kembali</a>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+@endyield

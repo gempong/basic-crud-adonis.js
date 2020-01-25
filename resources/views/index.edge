@@ -1,0 +1,62 @@
+@layout('layout')
+@yield('content')
+<section class="main-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-10 mx-auto" style="margin-top:30px;">
+        <a href="{{ route('Todo.create') }}" class="btn btn-primary">Create To Do</a>
+      </div>
+      <div class="col-md-10 mx-auto">
+        <hr>
+      </div>
+      @if(flashMessage('notification'))
+      <div class="col-md-10 mx-auto">
+        <div class="alert alert-success my-2 alert-dismissible fade show" role="alert">
+          {{ flashMessage('notification') }}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      </div>
+      @endif
+      <div class="col-md-10 mx-auto">
+        <div class="row">
+          @if(todos == '')
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">No To Do</h5>
+                <p class="card-text">Create several todo by clicking on the <em class="text-primary">Create To Do</em> button</p>
+                <a href="{{ route('Todo.create') }}" class="btn btn-primary">Create To Do</a>
+              </div>
+            </div>
+          </div>
+          @else
+            @each(todo in todos)
+            <div class="col-md-4">
+              <div class="card">
+                @if( todo.img !== null)
+                  <img style="height: 180px; object-fit: cover;" class="card-img-top" src="{{ todo.img }}" alt="Card image cap">
+                @else
+                  <img class="card-img-top" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22286%22%20height%3D%22180%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20286%20180%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_16fdd4c66ba%20text%20%7B%20fill%3Argba(255%2C255%2C255%2C.75)%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A14pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_16fdd4c66ba%22%3E%3Crect%20width%3D%22286%22%20height%3D%22180%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22107.203125%22%20y%3D%2296.6703125%22%3E286x180%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" alt="Card image cap">
+                @endif
+                <div class="card-body">
+                  <h5 class="card-title">{{ todo.title }}</h5>
+                  @if( todo.img !== null)
+                    <p class="card-text">{{ todo.description }}</p>
+                  @else
+                    <p class="card-text">No Description</p>
+                  @endif
+                  <a href="{{ route('Todo.edit', { id : todo.id }) }}" class="btn btn-primary mb-1 d-xs-block">Edit</a>
+                  <a href="{{ route('Todo.delete', { id : todo.id }) }}" class="btn btn-danger mb-1 d-xs-block">Delete</a>
+                </div>
+              </div>
+            </div>
+            @endeach
+          @endif
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+@endyield
